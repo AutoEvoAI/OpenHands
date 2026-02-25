@@ -1,4 +1,4 @@
-"""Event Callback router for OpenHands Server."""
+"""Event Callback router for OpenHands App Server."""
 
 import asyncio
 import importlib
@@ -21,12 +21,10 @@ from openhands.app_server.app_conversation.app_conversation_models import (
 )
 from openhands.app_server.config import (
     depends_app_conversation_info_service,
-    depends_db_session,
     depends_event_service,
     depends_jwt_service,
     depends_sandbox_service,
     get_event_callback_service,
-    get_global_config,
 )
 from openhands.app_server.errors import AuthError
 from openhands.app_server.event.event_service import EventService
@@ -54,8 +52,6 @@ sandbox_service_dependency = depends_sandbox_service()
 event_service_dependency = depends_event_service()
 app_conversation_info_service_dependency = depends_app_conversation_info_service()
 jwt_dependency = depends_jwt_service()
-config = get_global_config()
-db_session_dependency = depends_db_session()
 _logger = logging.getLogger(__name__)
 
 
@@ -66,7 +62,7 @@ async def valid_sandbox(
     ),
     sandbox_service: SandboxService = sandbox_service_dependency,
 ) -> SandboxInfo:
-    if session_api_key is None:
+    if not session_api_key:
         raise HTTPException(
             status.HTTP_401_UNAUTHORIZED, detail='X-Session-API-Key header is required'
         )
@@ -128,6 +124,9 @@ async def on_conversation_update(
         git_provider=existing.git_provider,
         trigger=existing.trigger,
         pr_number=existing.pr_number,
+        # Preserve parent/child relationship and other metadata
+        parent_conversation_id=existing.parent_conversation_id,
+        metrics=conversation_info.stats.get_combined_metrics(),
     )
     await app_conversation_info_service.save_app_conversation_info(
         app_conversation_info
@@ -145,7 +144,6 @@ async def on_event(
     event_service: EventService = event_service_dependency,
 ) -> Success:
     """Webhook callback for when event stream events occur."""
-
     app_conversation_info = await valid_conversation(
         conversation_id, sandbox_info, app_conversation_info_service
     )
@@ -192,7 +190,7 @@ async def get_secret(
         if user_id:
             user_auth = await get_user_auth_for_user(user_id)
         else:
-            # OSS mode - use default user auth
+            # OpenHands (OSS mode) - use default user auth
             user_auth = DefaultUserAuth()
 
         # Create UserContext directly
