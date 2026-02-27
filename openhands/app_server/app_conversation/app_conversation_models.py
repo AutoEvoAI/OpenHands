@@ -23,6 +23,7 @@ class AgentType(Enum):
 
     DEFAULT = 'default'
     PLAN = 'plan'
+    SPEC_DRIVEN = 'spec'
 
 
 class PluginSpec(PluginSource):

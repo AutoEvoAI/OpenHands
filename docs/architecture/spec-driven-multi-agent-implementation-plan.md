@@ -48,7 +48,7 @@
 
 ## 二、实施计划 (12 周)
 
-### Phase 1: 基础设施搭建 (Week 1-2)
+### Phase 1: 基础设施搭建 (Week 1-2) ✅ 已完成
 
 #### 1.1 规范数据模型 (`sdk/spec/`)
 
@@ -105,7 +105,7 @@ class TaskGraph(DiGraph):
 
 ---
 
-### Phase 2: L1 战略层实现 (Week 3-4)
+### Phase 2: L1 战略层实现 (Week 3-4) ✅ 已完成
 
 #### 2.1 SupervisorAgent
 
@@ -608,8 +608,8 @@ openhands/
 
 | 周次 | 里程碑 | 交付物 |
 |------|--------|--------|
-| Week 2 | Phase 1 完成 | `sdk/spec/` 模块可导入 |
-| Week 4 | Phase 2 完成 | SupervisorAgent + SpecAgent 可运行 |
+| Week 2 | Phase 1 完成 ✅ | `sdk/spec/` 模块可导入 |
+| Week 4 | Phase 2 完成 ✅ | SupervisorAgent + SpecAgent 可运行 |
 | Week 6 | Phase 3 完成 | PlannerAgent + Allocator 可运行 |
 | Week 9 | Phase 4 完成 | 完整 L3 组件可运行 |
 | Week 12 | Phase 5 完成 | E2E 测试通过 |
