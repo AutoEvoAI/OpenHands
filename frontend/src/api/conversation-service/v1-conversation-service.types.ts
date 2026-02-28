@@ -3,6 +3,16 @@ import { V1SandboxStatus } from "../sandbox-service/sandbox-service.types";
 import { Provider } from "#/types/settings";
 import { SuggestedTask } from "#/utils/types";
 
+// V1 Agent Types
+export const V1AgentType = {
+  DEFAULT: "default",
+  PLAN: "plan",
+  SPEC_DRIVEN: "spec",
+} as const;
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type V1AgentType = (typeof V1AgentType)[keyof typeof V1AgentType];
+
 // V1 Metrics Types
 export interface V1TokenUsage {
   prompt_tokens: number;
@@ -53,7 +63,7 @@ export interface V1AppConversationStartRequest {
   trigger?: ConversationTrigger | null;
   pr_number?: number[];
   parent_conversation_id?: string | null;
-  agent_type?: "default" | "plan";
+  agent_type?: "default" | "plan" | "spec";
 }
 
 export type V1AppConversationStartTaskStatus =

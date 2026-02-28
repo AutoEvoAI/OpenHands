@@ -65,7 +65,7 @@ class V1ConversationService {
     suggestedTask?: SuggestedTask,
     trigger?: ConversationTrigger,
     parent_conversation_id?: string,
-    agent_type?: "default" | "plan",
+    agent_type?: "default" | "plan" | "spec",
   ): Promise<V1AppConversationStartTask> {
     const body: V1AppConversationStartRequest = {
       selected_repository: selectedRepository,

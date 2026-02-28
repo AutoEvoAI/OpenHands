@@ -18,7 +18,7 @@ interface CreateConversationVariables {
   conversationInstructions?: string;
   createMicroagent?: CreateMicroagent;
   parentConversationId?: string;
-  agentType?: "default" | "plan";
+  agentType?: "default" | "plan" | "spec";
 }
 
 // Response type that combines both V1 and legacy responses

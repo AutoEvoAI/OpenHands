@@ -17,12 +17,14 @@ interface ChangeAgentContextMenuProps {
   onClose: () => void;
   onCodeClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onPlanClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onSpecClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function ChangeAgentContextMenu({
   onClose,
   onCodeClick,
   onPlanClick,
+  onSpecClick,
 }: ChangeAgentContextMenuProps) {
   const { t } = useTranslation();
   const menuRef = useClickOutsideElement<HTMLUListElement>(onClose);
@@ -38,6 +40,13 @@ export function ChangeAgentContextMenu({
     event.preventDefault();
     event.stopPropagation();
     onPlanClick?.(event);
+    onClose();
+  };
+
+  const handleSpecClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onSpecClick?.(event);
     onClose();
   };
 
@@ -69,6 +78,17 @@ export function ChangeAgentContextMenu({
           icon={LessonPlanIcon}
           title={t(I18nKey.COMMON$PLAN)}
           description={t(I18nKey.COMMON$PLAN_AGENT_DESCRIPTION)}
+        />
+      </ContextMenuListItem>
+      <ContextMenuListItem
+        testId="spec-option"
+        onClick={handleSpecClick}
+        className={contextMenuListItemClassName}
+      >
+        <ContextMenuIconTextWithDescription
+          icon={LessonPlanIcon}
+          title={t(I18nKey.COMMON$SPEC)}
+          description={t(I18nKey.COMMON$SPEC_AGENT_DESCRIPTION)}
         />
       </ContextMenuListItem>
     </ContextMenu>

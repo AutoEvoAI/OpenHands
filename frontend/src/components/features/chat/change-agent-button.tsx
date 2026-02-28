@@ -15,6 +15,7 @@ import { useActiveConversation } from "#/hooks/query/use-active-conversation";
 import { useUnifiedWebSocketStatus } from "#/hooks/use-unified-websocket-status";
 import { useSubConversationTaskPolling } from "#/hooks/query/use-sub-conversation-task-polling";
 import { useHandlePlanClick } from "#/hooks/use-handle-plan-click";
+import { useHandleSpecClick } from "#/hooks/use-handle-spec-click";
 
 export function ChangeAgentButton() {
   const [contextMenuOpen, setContextMenuOpen] = useState<boolean>(false);
@@ -69,8 +70,9 @@ export function ChangeAgentButton() {
     queryClient,
   ]);
 
-  // Get handlePlanClick and isCreatingConversation from custom hook
+  // Get handlePlanClick and handleSpecClick from custom hooks
   const { handlePlanClick, isCreatingConversation } = useHandlePlanClick();
+  const { handleSpecClick } = useHandleSpecClick();
 
   // Close context menu when agent starts running
   useEffect(() => {
@@ -130,20 +132,27 @@ export function ChangeAgentButton() {
   };
 
   const isExecutionAgent = conversationMode === "code";
+  const isSpecAgent = conversationMode === "spec";
 
   const buttonLabel = useMemo(() => {
     if (isExecutionAgent) {
       return t(I18nKey.COMMON$CODE);
     }
+    if (isSpecAgent) {
+      return t(I18nKey.COMMON$SPEC);
+    }
     return t(I18nKey.COMMON$PLAN);
-  }, [isExecutionAgent, t]);
+  }, [isExecutionAgent, isSpecAgent, t]);
 
   const buttonIcon = useMemo(() => {
     if (isExecutionAgent) {
       return <CodeTagIcon width={18} height={18} color="#737373" />;
     }
+    if (isSpecAgent) {
+      return <LessonPlanIcon width={18} height={18} color="#ffffff" />;
+    }
     return <LessonPlanIcon width={18} height={18} color="#ffffff" />;
-  }, [isExecutionAgent]);
+  }, [isExecutionAgent, isSpecAgent]);
 
   return (
     <div className="relative">
@@ -153,7 +162,7 @@ export function ChangeAgentButton() {
         disabled={isButtonDisabled}
         className={cn(
           "flex items-center border border-[#4B505F] rounded-[100px] transition-opacity",
-          !isExecutionAgent && "border-[#597FF4] bg-[#4A67BD]",
+          (isSpecAgent || !isExecutionAgent) && "border-[#597FF4] bg-[#4A67BD]",
           isButtonDisabled
             ? "opacity-50 cursor-not-allowed"
             : "cursor-pointer hover:opacity-80",
@@ -172,6 +181,7 @@ export function ChangeAgentButton() {
           onClose={() => setContextMenuOpen(false)}
           onCodeClick={handleCodeClick}
           onPlanClick={handlePlanClick}
+          onSpecClick={handleSpecClick}
         />
       )}
     </div>
