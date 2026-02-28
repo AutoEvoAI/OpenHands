@@ -18,3 +18,4 @@ export const VSCODE_IN_NEW_TAB = () => loadFeatureFlag("VSCODE_IN_NEW_TAB");
 export const ENABLE_TRAJECTORY_REPLAY = () =>
   loadFeatureFlag("TRAJECTORY_REPLAY");
 export const USE_SPEC_DRIVEN_AGENT = () => loadFeatureFlag("SPEC_DRIVEN_AGENT");
+export const ENABLE_ONBOARDING = () => loadFeatureFlag("ENABLE_ONBOARDING");
