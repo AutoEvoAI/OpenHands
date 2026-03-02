@@ -13,7 +13,7 @@ from openhands.sdk.utils.models import DiscriminatedUnionMixin
 
 # The version of the agent server to use for deployments.
 # Typically this will be the same as the values from the pyproject.toml
-AGENT_SERVER_IMAGE = 'ghcr.io/openhands/agent-server:010e847-python'
+AGENT_SERVER_IMAGE = 'ghcr.io/openhands/agent-server:1d89867-nikolaik_s_python-nodejs_tag_python3.12-nodejs22-source-minimal'
 
 
 class SandboxSpecService(ABC):
