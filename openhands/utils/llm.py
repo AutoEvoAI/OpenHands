@@ -14,17 +14,24 @@ from openhands.llm import bedrock
 # Hardcoded OpenHands provider models used in self-hosted mode.
 # In SaaS mode these are loaded from the database instead.
 OPENHANDS_MODELS = [
+    'openhands/claude-opus-4-6',
     'openhands/claude-opus-4-5-20251101',
+    'openhands/claude-sonnet-4-6',
     'openhands/claude-sonnet-4-5-20250929',
     'openhands/gpt-5.2-codex',
     'openhands/gpt-5.2',
     'openhands/minimax-m2.5',
     'openhands/gemini-3-pro-preview',
+    'openhands/gemini-3.1-pro-preview',
     'openhands/gemini-3-flash-preview',
     'openhands/deepseek-chat',
     'openhands/devstral-medium-2512',
     'openhands/kimi-k2-0711-preview',
+    'openhands/kimi-k2.5',
     'openhands/qwen3-coder-480b',
+    'openhands/qwen3-coder-next',
+    'openhands/glm-4.7',
+    'openhands/glm-5',
 ]
 
 CLARIFAI_MODELS = [
